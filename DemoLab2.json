@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "roleName": {
+      "type": "string",
+      "defaultValue": "CustomStorageReaderRole",
+      "metadata": {
+        "description": "Name of the custom role."
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/roleDefinitions",
+      "apiVersion": "2020-04-01-preview",
+      "name": "[parameters('roleName')]",
+      "properties": {
+        "roleName": "[parameters('roleName')]",
+        "description": "Custom role with read-only access to Azure Storage resources",
+        "assignableScopes": [
+          "/subscriptions/<subscription-id>"
+        ],
+        "permissions": [
+          {
+            "actions": [
+              "Microsoft.Storage/storageAccounts/read*",
+              "Microsoft.Storage/storageAccounts/listKeys/action"
+            ],
+            "notActions": [],
+            "dataActions": [],
+            "notDataActions": []
+          }
+        ],
+        "assignableScopes": [
+          "/"
+        ]
+      }
+    }
+  ]
+}
